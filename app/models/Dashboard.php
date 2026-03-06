@@ -265,15 +265,12 @@ class Dashboard extends Database
      */
     public function getChartTimeline($dateFrom, $dateTo, $filter)
     {
-        // Determinar agrupación según período
-        $groupBy = 'DATE(fecha)';
+        // Determinar formato según período
         $dateFormat = '%Y-%m-%d';
         
         if ($filter === 'year') {
-            $groupBy = 'DATE_FORMAT(fecha, "%Y-%m")';
             $dateFormat = '%Y-%m';
         } elseif ($filter === 'month') {
-            $groupBy = 'DATE(fecha)';
             $dateFormat = '%Y-%m-%d';
         }
 
@@ -285,13 +282,14 @@ class Dashboard extends Database
             FROM ventas
             WHERE DATE(fecha) BETWEEN :from AND :to
             AND estado_venta != 'cancelada'
-            GROUP BY $groupBy
-            ORDER BY fecha
+            GROUP BY DATE_FORMAT(fecha, :format2)
+            ORDER BY MIN(fecha)
         ");
         $stmt->execute([
             ':from' => $dateFrom,
             ':to' => $dateTo,
-            ':format' => $dateFormat
+            ':format' => $dateFormat,
+            ':format2' => $dateFormat
         ]);
         $ventasData = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -303,8 +301,8 @@ class Dashboard extends Database
             FROM compras
             WHERE DATE(fecha_compra) BETWEEN :from AND :to
             AND activo = 1
-            GROUP BY DATE_FORMAT(fecha_compra, :format)
-            ORDER BY fecha_compra
+            GROUP BY DATE_FORMAT(fecha_compra, '$dateFormat')
+            ORDER BY MIN(fecha_compra)
         ");
         $stmt->execute([
             ':from' => $dateFrom,

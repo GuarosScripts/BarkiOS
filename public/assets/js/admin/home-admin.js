@@ -1,7 +1,7 @@
 $(document).ready(function() {
     
     //variables globales
-    const baseUrl = '/BarkiOS/admin/home';
+    const baseUrl = '/admin/home';
     let currentFilter = 'today';
     let ventasComprasChart = null;
     let cuentasChart = null;
@@ -446,7 +446,7 @@ $(document).ready(function() {
                 type: 'danger',
                 icon: 'fa-exclamation-triangle',
                 text: `${data.cuentas_cobrar.vencidas} cuenta${data.cuentas_cobrar.vencidas !== 1 ? 's' : ''} por cobrar vencida${data.cuentas_cobrar.vencidas !== 1 ? 's' : ''}`,
-                link: '/BarkiOS/admin/accounts-receivable'
+                link: '/admin/accounts-receivable'
             });
         }
 
@@ -456,7 +456,7 @@ $(document).ready(function() {
                 type: 'danger',
                 icon: 'fa-file-invoice-dollar',
                 text: `${data.cuentas_pagar.vencidas} cuenta${data.cuentas_pagar.vencidas !== 1 ? 's' : ''} por pagar vencida${data.cuentas_pagar.vencidas !== 1 ? 's' : ''}`,
-                link: '/BarkiOS/admin/accounts-payable'
+                link: '/admin/accounts-payable'
             });
         }
 
@@ -466,7 +466,7 @@ $(document).ready(function() {
                 type: 'warning',
                 icon: 'fa-clock',
                 text: `${data.cuentas_cobrar.por_vencer} cuenta${data.cuentas_cobrar.por_vencer !== 1 ? 's' : ''} por cobrar próxima${data.cuentas_cobrar.por_vencer !== 1 ? 's' : ''} a vencer`,
-                link: '/BarkiOS/admin/accounts-receivable'
+                link: '/admin/accounts-receivable'
             });
         }
 
@@ -476,14 +476,14 @@ $(document).ready(function() {
                 type: 'danger',
                 icon: 'fa-box-open',
                 text: `Inventario crítico: solo ${data.inventario.disponibles} prenda${data.inventario.disponibles !== 1 ? 's' : ''} disponible${data.inventario.disponibles !== 1 ? 's' : ''}`,
-                link: '/BarkiOS/admin/products'
+                link: '/admin/products'
             });
         } else if (data.inventario.disponibles < 30) {
             alerts.push({
                 type: 'warning',
                 icon: 'fa-box-open',
                 text: `Inventario bajo: ${data.inventario.disponibles} prenda${data.inventario.disponibles !== 1 ? 's' : ''} disponible${data.inventario.disponibles !== 1 ? 's' : ''}`,
-                link: '/BarkiOS/admin/products'
+                link: '/admin/products'
             });
         }
 
@@ -606,7 +606,7 @@ window.generateDashboardPdf = function() {
     // Obtener el filtro actual
     const activeFilter = $('.filter-btn-group .btn.active').data('filter');
     
-    let url = '/BarkiOS/admin/home?action=generate_pdf_report&filter=' + activeFilter;
+    let url = '/admin/home?action=generate_pdf_report&filter=' + activeFilter;
     
     // Si es filtro personalizado, agregar fechas
     if (activeFilter === 'custom') {
@@ -647,7 +647,7 @@ window.generateDashboardPdf = function() {
 window.downloadCsvReport = function() {
     const activeFilter = $('.filter-btn-group .btn.active').data('filter');
     
-    let url = '/BarkiOS/admin/home?action=export_report&filter=' + activeFilter;
+    let url = '/admin/home?action=export_report&filter=' + activeFilter;
     
     if (activeFilter === 'custom') {
         const dateFrom = $('#dateFrom').val();

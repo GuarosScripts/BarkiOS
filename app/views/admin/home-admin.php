@@ -388,9 +388,9 @@ $dolarRate = getDolarRate();
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="/BarkiOS/public/assets/js/admin/home-admin.js"></script>
-<script src="/BarkiOS/public/assets/js/admin/logout.js"></script>
-<script src="/BarkiOS/public/assets/js/utils/skeleton.js"></script>
+<script src="/public/assets/js/admin/home-admin.js"></script>
+<script src="/public/assets/js/admin/logout.js"></script>
+<script src="/public/assets/js/utils/skeleton.js"></script>
 
 </body>
 </html>
