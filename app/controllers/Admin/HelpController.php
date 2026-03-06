@@ -5,27 +5,20 @@
  */
 
 require_once __DIR__ . '/LoginController.php';
-checkAuth();
+checkAuth(); // Esto ya maneja la autenticación y el session_start
 
-if (session_status() === PHP_SESSION_NONE) session_start();
+function index() {
+    $paths = [
+        __DIR__ . '/../../views/admin/help-admin.php',
+        dirname(__DIR__, 2) . '/views/admin/help-admin.php'
+    ];
 
-// Verificar autenticación
-if (!isset($_SESSION['user_id']) && !isset($_SESSION['admin_logged_in'])) {
-    header("Location: /BarkiOS/login");
-    exit();
-}
-
-// Mostrar la vista de ayuda
-$paths = [
-    __DIR__ . '/../../views/admin/help-admin.php',
-    dirname(__DIR__, 2) . '/views/admin/help-admin.php'
-];
-
-foreach ($paths as $path) {
-    if (file_exists($path)) {
-        require $path;
-        exit();
+    foreach ($paths as $path) {
+        if (file_exists($path)) {
+            require $path;
+            return;
+        }
     }
-}
 
-die("Vista de ayuda no encontrada");
+    die("Vista de ayuda no encontrada");
+}

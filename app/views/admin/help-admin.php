@@ -86,7 +86,7 @@
                                    target="_blank">
                                     <i class="fas fa-globe me-2"></i>Ver Manual Online
                                 </a>
-                                <a href="/BarkiOS/public/assets/pdf/Manual de Usuario - Garage Barki.pdf" 
+                                <a href="/public/assets/pdf/Manual de Usuario - Garage Barki.pdf" 
                                    class="btn btn-outline-primary btn-lg px-5" 
                                    download>
                                     <i class="fas fa-download me-2"></i>Descargar PDF
@@ -102,7 +102,7 @@
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
-<script src="/BarkiOS/public/assets/js/admin/logout.js"></script>
+<script src="/public/assets/js/admin/logout.js"></script>
 
 </body>
 </html>

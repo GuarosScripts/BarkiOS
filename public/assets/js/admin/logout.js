@@ -56,7 +56,7 @@ $(document).ready(function () {
                     showConfirmButton: false
                 }).then(() => {
                     // Redirige a la página de inicio de sesión después del éxito
-                    window.location.href = '/BarkiOS/admin/login/show'; 
+                    window.location.href = result.value.redirect;
                 });
             } else if (result.isConfirmed && result.value && !result.value.success) {
                 // Maneja error de respuesta JSON del servidor

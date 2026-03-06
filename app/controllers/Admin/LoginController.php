@@ -20,7 +20,7 @@ function checkAuth() {
     }
 
     if (!isset($_SESSION['user_id'])) {
-        header('Location: /BarkiOS/admin/login/show');
+        header('Location: /admin/login/show');
         exit();
     }
 }
@@ -28,7 +28,7 @@ function checkAuth() {
 
 function show() {
     if (isset($_SESSION['user_id'])) {
-        header('Location: /BarkiOS/admin/login/dashboard');
+        header('Location: /admin/login/dashboard');
         exit();
     }
 
@@ -40,7 +40,7 @@ function login() {
     $userModel = $GLOBALS['userModel']; 
 
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-        header('Location: /BarkiOS/admin/login/show');
+        header('Location: /admin/login/show');
         exit();
     }
 
@@ -75,7 +75,7 @@ function login() {
         $_SESSION['user_nombre'] = $user['nombre'] ?? $user['user_nombre'] ?? null;
         $_SESSION['is_admin'] = true; 
 
-        header('Location: /BarkiOS/admin/login/dashboard');
+        header('Location: /admin/login/dashboard');
         exit();
     } else {
         $error = "Usuario o contraseña incorrectos.";
@@ -93,7 +93,7 @@ function logout() {
     session_unset();
     session_destroy();
     
-    header('Location: /BarkiOS/admin/login/show');
+    header('Location: /admin/login/show');
     exit();
 }
 
@@ -113,7 +113,11 @@ function logout_ajax() {
     session_destroy();
 
     header('Content-Type: application/json');
-    echo json_encode(['success' => true, 'message' => 'Sesión cerrada correctamente']);
+    echo json_encode([
+        'success' => true, 
+        'message' => 'Sesión cerrada correctamente',
+        'redirect' => '/admin/login/show'  
+    ]);
     exit();
 }
 

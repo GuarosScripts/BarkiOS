@@ -15,7 +15,7 @@ handleRequest($saleModel);
 // ============================================
 
 function handleRequest($model) {
-    $basePath = '/BarkiOS';
+    $basePath = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/');
 
     if (!isset($_SESSION['user_id']) && !isset($_SESSION['admin_logged_in'])) {
         header("Location: {$basePath}/login");
