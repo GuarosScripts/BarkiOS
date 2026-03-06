@@ -25,6 +25,7 @@ services:
   barkios-db:
     image: mysql:8.0
     container_name: barkios_mysql
+    command: --sql_mode="STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO"
     ports:
       - "${DB_PORT:-4306}:3306"
     environment:
