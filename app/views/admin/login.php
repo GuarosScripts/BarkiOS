@@ -19,7 +19,6 @@
                     </div>
                 <?php endif; ?>
                 
-                <!-- ✅ CORREGIDO: Action apunta a /admin/login/login -->
                 <form action="/admin/login/login" method="POST" id="loginForm"> 
                     <div class="mb-4">
                         <label for="email" class="form-label">Usuario</label>
