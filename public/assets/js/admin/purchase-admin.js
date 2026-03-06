@@ -1,6 +1,6 @@
-import * as Validations from '/BarkiOS/public/assets/js/utils/validation.js';
-import * as Helpers from '/BarkiOS/public/assets/js/utils/helpers.js';
-import * as Ajax from '/BarkiOS/public/assets/js/utils/ajax-handler.js';
+import * as Validations from '/public/assets/js/utils/validation.js';
+import * as Helpers from '/public/assets/js/utils/helpers.js';
+import * as Ajax from '/public/assets/js/utils/ajax-handler.js';
 
 $(document).ready(function() {
     const baseUrl = window.location.pathname;
