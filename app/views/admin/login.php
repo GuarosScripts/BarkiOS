@@ -20,7 +20,7 @@
                 <?php endif; ?>
                 
                 <!-- ✅ CORREGIDO: Action apunta a /admin/login/login -->
-                <form action="/BarkiOS/admin/login/login" method="POST" id="loginForm"> 
+                <form action="/admin/login/login" method="POST" id="loginForm"> 
                     <div class="mb-4">
                         <label for="email" class="form-label">Usuario</label>
                         <div class="input-group">
@@ -84,7 +84,7 @@
                 
                 <!-- Enlace para volver al sitio público -->
                 <div class="text-center mt-4">
-                    <a href="/BarkiOS/" class="text-decoration-none text-muted small">
+                    <a href="/" class="text-decoration-none text-muted small">
                         <i class="fas fa-arrow-left me-1"></i>
                         Volver al sitio
                     </a>
