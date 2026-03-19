@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for barkios-spring-water-869 on 2026-03-19T11:58:26-04:00
+# fly.toml app configuration file generated for barkios on 2026-03-19T12:23:34-04:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'barkios-spring-water-869'
+app = 'barkios'
 primary_region = 'gru'
 
 [build]
