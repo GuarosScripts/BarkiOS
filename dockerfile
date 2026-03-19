@@ -32,8 +32,10 @@ RUN composer install --no-interaction --no-scripts --no-dev --optimize-autoloade
 # 8. Copiamos el resto del código de tu proyecto
 COPY . .
 
-# 9. Ajustamos los permisos para que Apache pueda leer y escribir en el proyecto
-RUN chown -R www-data:www-data /var/www/html
+# 9. Ajustamos permisos (Modificado para ser más robusto)
+RUN chown -R www-data:www-data /var/www/html \
+    && find /var/www/html -type d -exec chmod 755 {} \; \
+    && find /var/www/html -type f -exec chmod 644 {} \;
 
 # 10. Exponemos el puerto 80
 EXPOSE 80
