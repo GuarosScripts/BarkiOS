@@ -1,45 +1,42 @@
+# 1. Usamos la imagen oficial de PHP con Apache
 FROM php:8.2-apache
 
-# Instalar dependencias del sistema
+# 2. Instalamos dependencias del sistema y extensiones de PHP necesarias para MySQL
 RUN apt-get update && apt-get install -y \
-    git \
-    curl \
     libpng-dev \
-    libonig-dev \
-    libxml2-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
     zip \
     unzip \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+    git \
+    curl \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install pdo_mysql gd
 
-# Instalar extensiones de PHP necesarias
-RUN docker-php-ext-install pdo_mysql mysqli mbstring exif pcntl bcmath gd
+# 3. Habilitamos el módulo rewrite de Apache (crucial para rutas en PHP/Laravel/proyectos web)
+RUN a2enmod rewrite
 
-# Habilitar módulos de Apache
-RUN a2enmod rewrite headers
-
-# Obtener Composer
+# 4. Instalamos Composer directamente desde su imagen oficial
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Establecer directorio de trabajo
+# 5. Establecemos el directorio de trabajo
 WORKDIR /var/www/html
 
-# Copiar archivos de la aplicación
-COPY . /var/www/html
+# 6. Copiamos los archivos de configuración de dependencias primero 
+# (Esto optimiza el tiempo de construcción de la imagen si no cambian las librerías)
+COPY composer.json composer.lock* ./
 
-# Instalar dependencias de Composer si existe composer.json
-RUN if [ -f composer.json ]; then composer install --no-dev --optimize-autoloader; fi
+# 7. Instalamos las dependencias de Composer
+RUN composer install --no-interaction --no-scripts --no-dev --optimize-autoloader
 
-# Configurar Apache para que apunte a /var/www/html
-ENV APACHE_DOCUMENT_ROOT /var/www/html
-RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
-RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
+# 8. Copiamos el resto del código de tu proyecto
+COPY . .
 
-# Establecer permisos
-RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 /var/www/html \
-    && chmod -R 777 /var/www/html/storage 2>/dev/null || true
+# 9. Ajustamos los permisos para que Apache pueda leer y escribir en el proyecto
+RUN chown -R www-data:www-data /var/www/html
 
-# Exponer puerto 80
+# 10. Exponemos el puerto 80
 EXPOSE 80
 
+# 11. Iniciamos Apache en el primer plano
 CMD ["apache2-foreground"]
